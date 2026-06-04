@@ -2,8 +2,8 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>細胞所需的物質｜互動式滲透作用實驗</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>細胞所需的物質｜響應式互動實驗</title>
 <style>
 :root{
   --bg:#eefaf7;
@@ -17,62 +17,72 @@
   --bad:#dc2626;
   --water:#49b7ff;
   --salt:#f59e0b;
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
 }
 *{box-sizing:border-box}
+html{font-size:16px}
 body{
   margin:0;
   font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
   color:var(--ink);
   background:linear-gradient(180deg,#f3fcfb,#e9f7f6);
+  -webkit-text-size-adjust:100%;
 }
 header{
   background:linear-gradient(135deg,#129a8f,#39c0b2);
   color:white;
-  padding:22px 18px;
+  padding:calc(18px + var(--safe-top)) clamp(14px,3vw,24px) 18px;
   box-shadow:0 4px 18px rgba(0,0,0,.12);
 }
-header h1{margin:0;font-size:28px}
-header p{margin:8px 0 0;opacity:.95}
+header h1{margin:0;font-size:clamp(1.25rem,3.5vw,1.85rem);line-height:1.25}
+header p{margin:8px 0 0;opacity:.95;font-size:clamp(.88rem,2.4vw,1rem);line-height:1.55}
 .wrap{
-  max-width:1200px;
-  margin:20px auto;
-  padding:0 16px 28px;
+  width:min(1200px,100%);
+  margin:clamp(10px,2vw,20px) auto;
+  padding:0 clamp(10px,2.5vw,16px) calc(28px + var(--safe-bottom));
 }
 .grid{
   display:grid;
-  grid-template-columns:340px 1fr;
-  gap:16px;
+  grid-template-columns:minmax(290px,340px) 1fr;
+  gap:clamp(10px,2vw,16px);
+  align-items:start;
 }
 .card{
   background:var(--card);
   border:1px solid var(--line);
-  border-radius:20px;
-  padding:16px;
+  border-radius:clamp(14px,3vw,20px);
+  padding:clamp(12px,2.5vw,16px);
   box-shadow:0 8px 20px rgba(18,154,143,.08);
 }
 .card h2,.card h3{
   margin:0 0 12px;
   color:var(--main);
+  line-height:1.25;
 }
-.small{font-size:14px;color:var(--muted)}
-label{display:block;font-weight:700;margin:12px 0 6px}
-select,button,input[type=range]{
-  width:100%;
-}
+.card h2{font-size:clamp(1.25rem,3.2vw,1.55rem)}
+.card h3{font-size:clamp(1.05rem,2.6vw,1.25rem)}
+.small{font-size:clamp(.82rem,2.2vw,.9rem);color:var(--muted);line-height:1.6}
+label{display:block;font-weight:700;margin:12px 0 6px;font-size:clamp(.92rem,2.3vw,1rem)}
+select,button,input[type=range]{width:100%}
 select{
-  padding:10px 12px;
+  padding:11px 12px;
   border:1px solid var(--line);
   border-radius:12px;
   font-size:16px;
   background:#fff;
+  min-height:44px;
 }
 .rangeRow{
   display:grid;
-  grid-template-columns:1fr 70px;
+  grid-template-columns:1fr 72px;
   align-items:center;
   gap:10px;
 }
-input[type=range]{accent-color:var(--main)}
+input[type=range]{
+  accent-color:var(--main);
+  min-height:38px;
+}
 .valueBox{
   text-align:center;
   background:#f4fbfa;
@@ -80,10 +90,11 @@ input[type=range]{accent-color:var(--main)}
   border-radius:10px;
   padding:8px 6px;
   font-weight:800;
+  min-height:38px;
 }
 .btns{
   display:grid;
-  grid-template-columns:1fr 1fr 1fr;
+  grid-template-columns:repeat(3,1fr);
   gap:10px;
   margin-top:14px;
 }
@@ -94,6 +105,9 @@ button{
   font-weight:800;
   cursor:pointer;
   transition:.15s;
+  min-height:44px;
+  font-size:clamp(.9rem,2.3vw,1rem);
+  touch-action:manipulation;
 }
 button:hover{transform:translateY(-1px)}
 .primary{background:var(--main);color:#fff}
@@ -106,13 +120,13 @@ button:hover{transform:translateY(-1px)}
   background:#e8fbf8;
   color:var(--main);
   font-weight:800;
-  font-size:13px;
+  font-size:clamp(.76rem,2vw,.82rem);
   margin:0 6px 8px 0;
 }
 .stageHead{
   display:flex;
   justify-content:space-between;
-  align-items:center;
+  align-items:flex-start;
   gap:12px;
   margin-bottom:10px;
   flex-wrap:wrap;
@@ -120,36 +134,41 @@ button:hover{transform:translateY(-1px)}
 .stage{
   position:relative;
   width:100%;
-  min-height:560px;
-  border-radius:20px;
+  min-height:clamp(420px,58vw,560px);
+  border-radius:clamp(14px,3vw,20px);
   overflow:hidden;
   border:1px solid var(--line);
   background:linear-gradient(180deg,#f6ffff,#edf9ff 55%,#f8fffd);
 }
 .labInfo{
   position:absolute;
-  left:14px; top:12px;
-  display:flex; gap:8px; flex-wrap:wrap;
+  left:clamp(8px,2vw,14px);
+  top:clamp(8px,2vw,12px);
+  right:clamp(8px,2vw,14px);
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
   z-index:5;
 }
 .pill{
-  background:rgba(255,255,255,.85);
+  background:rgba(255,255,255,.9);
   border:1px solid var(--line);
-  padding:8px 10px;
+  padding:7px 9px;
   border-radius:999px;
-  font-size:13px;
+  font-size:clamp(.72rem,1.9vw,.82rem);
   font-weight:800;
+  line-height:1.25;
 }
 .simArea{
   position:relative;
   width:100%;
-  height:420px;
-  margin-top:70px;
+  height:clamp(340px,46vw,420px);
+  margin-top:clamp(96px,13vw,70px);
 }
 .beaker{
   position:absolute;
-  inset:10px 20px 10px 20px;
-  border:4px solid #90c8d4;
+  inset:10px clamp(10px,2.5vw,20px);
+  border:clamp(3px,.8vw,4px) solid #90c8d4;
   border-top:none;
   border-bottom-left-radius:24px;
   border-bottom-right-radius:24px;
@@ -183,15 +202,17 @@ button:hover{transform:translateY(-1px)}
 
 .cellWrap{
   position:absolute;
-  left:50%; top:54%;
+  left:50%;
+  top:54%;
   transform:translate(-50%,-50%);
-  width:240px; height:240px;
+  width:clamp(150px,24vw,240px);
+  height:clamp(150px,24vw,240px);
   z-index:4;
 }
 .cellOuter{
   position:absolute;
   inset:0;
-  border:5px solid #27687a;
+  border:clamp(4px,.9vw,5px) solid #27687a;
   background:radial-gradient(circle at 35% 30%, rgba(255,255,255,.95), rgba(173,235,250,.85) 55%, rgba(128,209,231,.8));
   transition:all 1.4s ease;
   box-shadow:0 8px 20px rgba(0,0,0,.08), inset 0 0 30px rgba(255,255,255,.6);
@@ -199,7 +220,8 @@ button:hover{transform:translateY(-1px)}
 .cellInner{
   position:absolute;
   left:50%; top:50%;
-  width:70px; height:70px;
+  width:clamp(44px,7vw,70px);
+  height:clamp(44px,7vw,70px);
   transform:translate(-50%,-50%);
   border-radius:50%;
   background:radial-gradient(circle at 35% 30%, #d7c8ff, #8c72e9);
@@ -213,7 +235,7 @@ button:hover{transform:translateY(-1px)}
 }
 .plant .membrane{
   position:absolute;
-  inset:16px;
+  inset:8%;
   border:4px solid #5aa65b;
   border-radius:14px;
   transition:all 1.4s ease;
@@ -222,7 +244,8 @@ button:hover{transform:translateY(-1px)}
 .plant .vacuole{
   position:absolute;
   left:50%; top:50%;
-  width:125px; height:125px;
+  width:52%;
+  height:52%;
   transform:translate(-50%,-50%);
   border-radius:18px;
   background:radial-gradient(circle at 50% 40%, rgba(255,255,255,.95), rgba(163,234,255,.78));
@@ -234,7 +257,8 @@ button:hover{transform:translateY(-1px)}
 
 .molecule{
   position:absolute;
-  width:12px; height:12px;
+  width:clamp(8px,1.4vw,12px);
+  height:clamp(8px,1.4vw,12px);
   border-radius:50%;
   opacity:.9;
   animation:float 5s ease-in-out infinite;
@@ -244,7 +268,9 @@ button:hover{transform:translateY(-1px)}
   box-shadow:0 0 0 2px rgba(73,183,255,.13);
 }
 .molecule.salt{
-  width:10px;height:10px;border-radius:4px;
+  width:clamp(7px,1.2vw,10px);
+  height:clamp(7px,1.2vw,10px);
+  border-radius:4px;
   background:var(--salt);
   box-shadow:0 0 0 2px rgba(245,158,11,.12);
 }
@@ -254,18 +280,25 @@ button:hover{transform:translateY(-1px)}
   100%{transform:translate(0,0)}
 }
 .legend{
-  display:flex; gap:12px; flex-wrap:wrap; margin-top:12px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:6px;
 }
 .legend span{
-  display:flex; align-items:center; gap:8px;
-  font-size:14px; color:var(--muted);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:clamp(.78rem,2vw,.9rem);
+  color:var(--muted);
 }
 .dot{width:12px;height:12px;border-radius:50%}
 .square{width:12px;height:12px;border-radius:3px}
 
 .motionArrow{
   position:absolute;
-  left:50%; top:50%;
+  left:50%;
+  top:50%;
   transform:translate(-50%,-50%);
   z-index:5;
   pointer-events:none;
@@ -273,17 +306,23 @@ button:hover{transform:translateY(-1px)}
   transition:opacity .6s ease;
 }
 .motionArrow.show{opacity:1}
-.motionArrow svg{width:330px;height:180px}
+.motionArrow svg{
+  width:clamp(210px,36vw,330px);
+  height:clamp(115px,20vw,180px);
+}
 .motionLabel{
   position:absolute;
   left:50%;
-  bottom:18px;
+  bottom:clamp(10px,2vw,18px);
   transform:translateX(-50%);
-  background:rgba(255,255,255,.9);
+  width:max-content;
+  max-width:calc(100% - 24px);
+  text-align:center;
+  background:rgba(255,255,255,.92);
   border:1px solid var(--line);
   padding:8px 12px;
   border-radius:999px;
-  font-size:14px;
+  font-size:clamp(.78rem,2vw,.9rem);
   font-weight:800;
   z-index:5;
 }
@@ -294,16 +333,15 @@ button:hover{transform:translateY(-1px)}
   border-radius:14px;
   padding:12px;
   line-height:1.8;
+  font-size:clamp(.9rem,2.2vw,1rem);
 }
-.status{
-  font-weight:900;
-}
+.status{font-weight:900}
 .status.good{color:var(--good)}
 .status.bad{color:var(--bad)}
 .table{
   width:100%;
   border-collapse:collapse;
-  font-size:14px;
+  font-size:clamp(.78rem,2vw,.88rem);
   margin-top:10px;
 }
 .table th,.table td{
@@ -313,22 +351,82 @@ button:hover{transform:translateY(-1px)}
 }
 .table th{background:#f1fbf8}
 .note{
-  font-size:14px;
+  font-size:clamp(.82rem,2.2vw,.9rem);
   color:var(--muted);
   margin-top:8px;
   line-height:1.7;
 }
-@media (max-width:960px){
+
+/* 平板：上下排列，避免右側被擠壓 */
+@media (max-width:980px){
   .grid{grid-template-columns:1fr}
-  .simArea{height:430px}
+  .stage{min-height:520px}
+  .simArea{height:395px;margin-top:92px}
+}
+
+/* 手機：控制台與實驗區全寬，按鈕直排，資訊列縮小 */
+@media (max-width:640px){
+  html{font-size:15px}
+  .wrap{padding-left:8px;padding-right:8px}
+  .card{border-radius:16px}
   .btns{grid-template-columns:1fr}
+  .rangeRow{grid-template-columns:1fr 64px}
+  .stage{min-height:500px}
+  .labInfo{
+    position:relative;
+    left:auto;right:auto;top:auto;
+    padding:8px;
+    background:rgba(255,255,255,.72);
+  }
+  .pill{font-size:.75rem;padding:6px 8px}
+  .simArea{
+    height:360px;
+    margin-top:0;
+  }
+  .beaker{inset:8px}
+  .cellWrap{
+    width:160px;
+    height:160px;
+    top:52%;
+  }
+  .motionArrow svg{width:230px;height:125px}
+  .table{display:block;overflow-x:auto;white-space:nowrap}
+}
+
+/* 小手機 */
+@media (max-width:420px){
+  header{padding-left:12px;padding-right:12px}
+  .stage{min-height:455px}
+  .simArea{height:320px}
+  .cellWrap{width:135px;height:135px}
+  .motionArrow svg{width:200px;height:110px}
+  .motionLabel{border-radius:14px;line-height:1.35}
+  .legend{width:100%}
+}
+
+/* 橫向手機：降低高度，方便投影或平板橫放 */
+@media (max-height:560px) and (orientation:landscape){
+  header{padding-top:10px;padding-bottom:10px}
+  header p{display:none}
+  .stage{min-height:390px}
+  .simArea{height:300px;margin-top:70px}
+  .cellWrap{width:140px;height:140px}
+}
+
+/* 使用者偏好減少動畫時 */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
 }
 </style>
 </head>
 <body>
 <header>
-  <h1>細胞所需的物質｜互動式滲透作用實驗</h1>
-  <p>主題聚焦：細胞膜、擴散作用、滲透作用、細胞內外濃度差與細胞變化</p>
+  <h1>細胞所需的物質｜響應式互動式滲透作用實驗</h1>
+  <p>可在電腦、平板、手機操作：觀察水分子移動、細胞膨脹、萎縮與植物細胞液泡變化。</p>
 </header>
 
 <div class="wrap">
@@ -386,10 +484,10 @@ button:hover{transform:translateY(-1px)}
 
       <div class="note">
         <strong>操作說明：</strong><br>
-        ① 先選擇細胞種類。<br>
-        ② 再選外液濃度或自行拉動濃度滑桿。<br>
+        ① 選擇細胞種類。<br>
+        ② 選外液濃度或自行拉動濃度滑桿。<br>
         ③ 按「開始實驗」，觀察水分子動畫與細胞形狀變化。<br>
-        ④ 查看右側「實驗觀察紀錄」。
+        ④ 查看右側或下方「實驗觀察紀錄」。
       </div>
     </section>
 
@@ -521,6 +619,12 @@ cellType.addEventListener("change", ()=>{
   updateDisplays();
 });
 
+window.addEventListener("resize", ()=>{
+  if(particles.length){
+    spawnParticles();
+  }
+});
+
 function renderCellType(){
   cellWrap.className = "cellWrap " + cellType.value;
 }
@@ -544,50 +648,50 @@ function makeParticle(type, x, y, inside=false){
 
 function spawnParticles(){
   clearParticles();
-  const areaRect = simArea.getBoundingClientRect();
   const cx = simArea.clientWidth / 2;
   const cy = simArea.clientHeight / 2;
-  const cellRadius = 95;
+  const cellRadius = Math.min(simArea.clientWidth, simArea.clientHeight) * 0.18;
 
-  // 外部水分子
-  for(let i=0;i<58;i++){
-    let x, y, ok=false;
-    while(!ok){
-      x = 30 + Math.random()*(simArea.clientWidth-60);
-      y = 30 + Math.random()*(simArea.clientHeight-60);
+  const waterCount = simArea.clientWidth < 480 ? 34 : 58;
+  for(let i=0;i<waterCount;i++){
+    let x, y, ok=false, tries=0;
+    while(!ok && tries<120){
+      tries++;
+      x = 20 + Math.random()*(simArea.clientWidth-40);
+      y = 20 + Math.random()*(simArea.clientHeight-40);
       const dx = x-cx, dy = y-cy;
-      if(Math.sqrt(dx*dx+dy*dy) > cellRadius+16) ok=true;
+      if(Math.sqrt(dx*dx+dy*dy) > cellRadius+20) ok=true;
     }
     makeParticle("water", x, y, false);
   }
 
-  // 外部溶質
-  const saltCount = Math.round(Number(outsideRange.value) * 3) + 6;
+  const saltBase = simArea.clientWidth < 480 ? 4 : 6;
+  const saltCount = Math.round(Number(outsideRange.value) * 2.2) + saltBase;
   for(let i=0;i<saltCount;i++){
-    let x, y, ok=false;
-    while(!ok){
-      x = 30 + Math.random()*(simArea.clientWidth-60);
-      y = 30 + Math.random()*(simArea.clientHeight-60);
+    let x, y, ok=false, tries=0;
+    while(!ok && tries<120){
+      tries++;
+      x = 20 + Math.random()*(simArea.clientWidth-40);
+      y = 20 + Math.random()*(simArea.clientHeight-40);
       const dx = x-cx, dy = y-cy;
-      if(Math.sqrt(dx*dx+dy*dy) > cellRadius+14) ok=true;
+      if(Math.sqrt(dx*dx+dy*dy) > cellRadius+16) ok=true;
     }
     makeParticle("salt", x, y, false);
   }
 
-  // 內部水分子
-  for(let i=0;i<18;i++){
+  const innerWater = simArea.clientWidth < 480 ? 10 : 18;
+  for(let i=0;i<innerWater;i++){
     const angle = Math.random()*Math.PI*2;
-    const r = Math.random()*60;
+    const r = Math.random()*cellRadius*0.55;
     const x = cx + Math.cos(angle)*r;
     const y = cy + Math.sin(angle)*r;
     makeParticle("water", x, y, true);
   }
 
-  // 內部溶質
-  const innerSalt = Math.round(Number(insideRange.value) * 2.4) + 4;
+  const innerSalt = Math.round(Number(insideRange.value) * 1.8) + 4;
   for(let i=0;i<innerSalt;i++){
     const angle = Math.random()*Math.PI*2;
-    const r = Math.random()*60;
+    const r = Math.random()*cellRadius*0.55;
     const x = cx + Math.cos(angle)*r;
     const y = cy + Math.sin(angle)*r;
     makeParticle("salt", x, y, true);
@@ -601,7 +705,6 @@ function getResult(){
 
   if(Math.abs(diff) < 0.4){
     return {
-      mode:"same",
       flow:"平衡",
       result: cellType.value === "animal" ? "細胞維持原狀" : "細胞維持原狀（正常）",
       detail:"細胞內外濃度接近，水分進出速率大致相同。",
@@ -611,7 +714,6 @@ function getResult(){
 
   if(out < inside){
     return {
-      mode:"in",
       flow:"水分進入細胞",
       result: cellType.value === "animal" ? "細胞膨脹，嚴重時可能破裂" : "液泡變大，細胞膨脹挺立",
       detail:"外液濃度較低、外側水較多，因此水分子經滲透作用進入細胞。",
@@ -619,7 +721,6 @@ function getResult(){
     };
   }else{
     return {
-      mode:"out",
       flow:"水分離開細胞",
       result: cellType.value === "animal" ? "細胞萎縮" : "細胞膜與細胞壁分離，出現萎縮現象",
       detail:"外液濃度較高、外側水較少，因此水分子經滲透作用離開細胞。",
@@ -668,19 +769,19 @@ function animateCell(){
     vacuole.style.display = "block";
     cellOuter.style.borderColor = "#4c8d45";
     if(res.direction === "in"){
-      membrane.style.inset = "12px";
-      vacuole.style.width = "150px";
-      vacuole.style.height = "150px";
+      membrane.style.inset = "6%";
+      vacuole.style.width = "62%";
+      vacuole.style.height = "62%";
       vacuole.style.background = "radial-gradient(circle at 50% 40%, rgba(255,255,255,.95), rgba(118,213,255,.85))";
     }else if(res.direction === "out"){
-      membrane.style.inset = "34px";
-      vacuole.style.width = "92px";
-      vacuole.style.height = "92px";
+      membrane.style.inset = "18%";
+      vacuole.style.width = "38%";
+      vacuole.style.height = "38%";
       vacuole.style.background = "radial-gradient(circle at 50% 40%, rgba(255,255,255,.92), rgba(180,219,255,.72))";
     }else{
-      membrane.style.inset = "16px";
-      vacuole.style.width = "125px";
-      vacuole.style.height = "125px";
+      membrane.style.inset = "8%";
+      vacuole.style.width = "52%";
+      vacuole.style.height = "52%";
       vacuole.style.background = "radial-gradient(circle at 50% 40%, rgba(255,255,255,.95), rgba(163,234,255,.78))";
     }
   }
@@ -715,11 +816,11 @@ function moveParticlesStep(){
       if(res.direction === "in" && !inside){
         nx += dx / (dist || 1) * 5;
         ny += dy / (dist || 1) * 5;
-        if(dist < 70) p.dataset.inside = "1";
+        if(dist < 60) p.dataset.inside = "1";
       } else if(res.direction === "out" && inside){
         nx -= dx / (dist || 1) * 5;
         ny -= dy / (dist || 1) * 5;
-        if(dist > 115) p.dataset.inside = "0";
+        if(dist > 105) p.dataset.inside = "0";
       }
     }
 
@@ -756,9 +857,9 @@ function resetExperiment(){
   cellInner.style.transform = "translate(-50%,-50%) scale(1)";
   cellOuter.style.borderColor = cellType.value === "animal" ? "#27687a" : "#4c8d45";
 
-  membrane.style.inset = "16px";
-  vacuole.style.width = "125px";
-  vacuole.style.height = "125px";
+  membrane.style.inset = "8%";
+  vacuole.style.width = "52%";
+  vacuole.style.height = "52%";
   vacuole.style.background = "radial-gradient(circle at 50% 40%, rgba(255,255,255,.95), rgba(163,234,255,.78))";
 
   logBox.innerHTML = "觀察前：細胞尚未開始變化。請先選擇條件，再開始實驗。";
